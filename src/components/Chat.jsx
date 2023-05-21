@@ -1,6 +1,5 @@
 import React from "react";
 import "../index.css";
-import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
@@ -11,15 +10,15 @@ const Chat = () => {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    fetchMessages();
+    fetchMessages(page);
   }, [page]);
 
   const fetchMessages = async (page) => {
     const url = `http://3.111.128.67/assignment/chat?page=${page}`;
     try {
-      await axios.get(url).then((res) => {
-        setData((prevChats) => [...res.data.chats, ...prevChats]);
-      });
+      const res = await fetch(url);
+      const data = await res.json();
+      setData((prevChats) => [...data.chats, ...prevChats]);
     } catch (error) {
       console.error(error);
     }
