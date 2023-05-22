@@ -173,8 +173,8 @@
 .grp-icon {
   box-sizing: border-box;
   position: relative;
-  width: 65px;
-  height: 65px;
+  width: 60px;
+  height: 40px;
   left: 0px;
   top: 0px;
   background: #faf9f4;
@@ -373,5 +373,5 @@
   position: sticky;
   padding-right: 0px;
   z-index: 1;
-  box-shadow: 0px 1px #606060;
+  /* box-shadow: 0px 5px 7px #606060; */
 }
