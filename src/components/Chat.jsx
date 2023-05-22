@@ -5,9 +5,10 @@ import { useEffect } from "react";
 import { useRef } from "react";
 
 const Chat = () => {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const containerRef = useRef(null);
+  // const [offset, setOffset] = useState();
 
   useEffect(() => {
     fetchMessages(page);
@@ -63,7 +64,11 @@ const Chat = () => {
     );
   };
 
-  return <div ref={containerRef}>{renderChats()}</div>;
+  return (
+    <div ref={containerRef} className="chat-body">
+      {renderChats()}
+    </div>
+  );
 };
 
 export default Chat;
