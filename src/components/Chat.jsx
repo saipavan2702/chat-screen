@@ -3,31 +3,27 @@ import "../index.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
+import axios from "axios";
 
 const Chat = () => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const containerRef = useRef(null);
-  // const [offset, setOffset] = useState();
 
   useEffect(() => {
+    const fetchMessages = async (page) => {
+      const url = `http://3.111.128.67/assignment/chat?page=${page}`;
+      try {
+        const res = await axios.get(url);
+        const responseData = await res.data;
+        setData((prevData) => [...prevData, ...responseData.chats]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     fetchMessages(page);
   }, [page]);
-
-  const fetchMessages = async (page) => {
-    const url = `http://3.111.128.67/assignment/chat?page=${page}`;
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      setData((prevChats) => [...data.chats, ...prevChats]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const loadMoreChats = () => {
-    setPage((prevPage) => prevPage + 1);
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,7 +32,7 @@ const Chat = () => {
         container.scrollTop + container.clientHeight >=
         container.scrollHeight - 200
       ) {
-        loadMoreChats();
+        setPage((prevPage) => prevPage + 1);
       }
     };
 
@@ -45,16 +41,16 @@ const Chat = () => {
     return () => {
       container.removeEventListener("scroll", handleScroll);
     };
-  }, [containerRef]);
+  }, []);
 
   const renderChats = () => {
     return data.map((chats) =>
       chats.sender.self === true ? (
-        <div className="self" ref={containerRef}>
+        <div className="self">
           <div className="context-self">{chats.message}</div>
         </div>
       ) : (
-        <div className="other" ref={containerRef}>
+        <div className="other">
           <div className="context">{chats.message}</div>
           <div className="icon">
             <img src={chats.sender.image} alt="" className="pic" />
