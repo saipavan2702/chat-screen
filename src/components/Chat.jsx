@@ -62,12 +62,12 @@ const Chat = () => {
       chats.sender.self === true ? (
         <div key={chats.id} className="self">
           <div className="context-self">{chats.message}</div>
-          <p>{chats.time}</p>
+          {/* <p>{chats.time}</p> */}
         </div>
       ) : (
         <div key={chats.id} className="other">
           <div className="context">{chats.message}</div>
-          <p>{chats.time}</p>
+          {/* <p>{chats.time}</p> */}
           <div className="icon">
             <img src={chats.sender.image} alt="" className="pic" />
           </div>
