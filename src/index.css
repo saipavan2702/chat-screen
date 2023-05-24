@@ -254,6 +254,9 @@
   right: 50%;
   margin-right: 0px;
 }
+
+/* Chat section */
+
 .self {
   display: flex;
   flex-direction: row;
