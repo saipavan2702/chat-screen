@@ -12,7 +12,7 @@ const Chat = () => {
 
   useEffect(() => {
     const fetchMessages = async (page) => {
-      const url = `https://3.111.128.67/assignment/chat?page=${page}`;
+      const url = `http://3.111.128.67/assignment/chat?page=${page}`;
       try {
         const res = await axios.get(url);
         const responseData = await res.data;
